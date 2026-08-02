@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/verkada
+description: >-
+  Verkada publishes no first-party client library (SDK) for the Command REST API.
+  The Command API is called directly over HTTPS. Verkada's GitHub org ships
+  first-party mobile SDKs for the Verkada Pass mobile-credential product (not the
+  Command REST API), and a community ecosystem provides unofficial Command API
+  wrappers. Nothing here is a first-party Command API client, so none are marked official:true.
+first_party_non_api_sdks:
+- language: swift
+  name: Verkada-Pass-iOS-SDK
+  url: https://github.com/verkada/Verkada-Pass-iOS-SDK
+  scope: Verkada Pass mobile access credential (not the Command REST API)
+  official: true
+- language: kotlin
+  name: Verkada-Pass-Android-SDK
+  url: https://github.com/verkada/Verkada-Pass-Android-SDK
+  scope: Verkada Pass mobile access credential (not the Command REST API)
+  official: true
+community_packages:
+- language: python
+  name: Verkada_py
+  url: https://github.com/Cyb3r-Jak3/Verkada_py
+  description: Unofficial Verkada API Python library
+  official: false
+- language: ruby
+  name: verkada-ruby
+  url: https://github.com/propelfuels/verkada-ruby
+  description: Community Verkada API client for Ruby
+  official: false
+- language: go
+  name: verkada-api-go
+  url: https://github.com/GDRCode/verkada-api-go
+  description: Community Go wrapper for Verkada public API endpoints
+  official: false
+notes: >-
+  Because no first-party Command API SDK exists, this repo intentionally does NOT
+  emit an SDKs canonical pointer. If Verkada ships an official client library, add
+  official:true here and wire type: SDKs.

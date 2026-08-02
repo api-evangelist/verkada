@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+source: https://security.verkada.com/
+docs: https://apidocs.verkada.com/reference/security-overview
+standards:
+- id: soc2
+  conforms: true
+  evidence: SOC 2 listed on Verkada trust center (security.verkada.com)
+- id: iso-27001
+  conforms: true
+  evidence: ISO 27001 listed on Verkada trust center (security.verkada.com)
+- id: tls-1.2-1.3
+  conforms: true
+  evidence: API requires HTTPS over TLS 1.2 or 1.3 (security-overview)
+- id: hmac-sha256-webhook-signing
+  conforms: true
+  evidence: Verkada-Signature header, HMAC-SHA256 over body|timestamp (securing-webhooks)
+- id: oauth2
+  conforms: false
+  evidence: API uses scoped API keys + short-lived tokens, not OAuth 2.0
+- id: openid-connect
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: custom {id,message,data} error envelope, not application/problem+json
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no documented Sunset/Deprecation response headers
+- id: cursor-pagination
+  conforms: true
+  evidence: page_size/page_token request params, next_page_token response field
+- id: scim2
+  conforms: false
+  evidence: >-
+    Verkada Command supports SCIM user provisioning via identity providers, but
+    this is separate from the documented public Command REST API surface.
+compliance_program:
+  trust_center: https://security.verkada.com/
+  certifications: [SOC 2, ISO 27001]
+  see: security/verkada-trust-center.yml

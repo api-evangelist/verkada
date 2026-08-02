@@ -1,0 +1,82 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: https://apidocs.verkada.com/llms.txt
+description: >-
+  Candidate MCP tool surface derived from the Verkada Command API operations
+  published in the provider's own llms.txt / API reference. Verkada does not (as of
+  this pass) publish an official hosted or remote MCP server; this is a proposed
+  mapping of one MCP tool per marquee operation to make the Command API agent-ready.
+  operationIds are the verbatim Verkada API reference identifiers.
+server:
+  name: verkada-command
+  transport: http
+  url: null
+  auth: two-tier api key -> 30-minute token (x-verkada-auth); region-specific base URL
+tools:
+- name: get_api_token
+  description: Exchange the top-level API key for a 30-minute API token.
+  source_operation: postloginapikeyviewv2
+- name: list_cameras
+  description: Return details of all cameras in the organization.
+  source_operation: getcamerainfoviewv1
+- name: get_camera_alerts
+  description: Return camera alerts (offline, tamper, motion, crowd, person of interest) for a time range.
+  source_operation: getnotificationsviewv1
+- name: get_object_counts
+  description: Return people/vehicle counts for a camera over a time range.
+  source_operation: getobjectcountsviewv1
+- name: get_footage_link
+  description: Return a link to play footage from a camera at a timestamp.
+  source_operation: gethistoryurlviewv1
+- name: get_streaming_token
+  description: Mint a JWT to stream live/historical HLS footage.
+  source_operation: getfootagetokenviewv1
+- name: list_seen_license_plates
+  description: Return timestamps, plate numbers, and images seen by an LPR camera.
+  source_operation: getlprimagesview
+- name: list_access_users
+  description: List all access users in the organization.
+  source_operation: getaccessmembersviewv1
+- name: get_access_user
+  description: Retrieve the access information object for a user.
+  source_operation: getaccessuserviewv1
+- name: list_doors
+  description: Retrieve all doors in the organization.
+  source_operation: getaccessdoorinformationviewv1
+- name: unlock_door_as_admin
+  description: Unlock a door irrespective of user privileges (safety-critical).
+  source_operation: postaccessadminapiunlockviewv1
+- name: unlock_door_as_user
+  description: Unlock a door as a specific user, honoring their access level.
+  source_operation: postaccessuserapiunlockviewv1
+- name: list_access_groups
+  description: List all access groups in the organization.
+  source_operation: getaccessgroupsviewv1
+- name: get_access_events
+  description: Return access-control events for a time range.
+  source_operation: geteventsviewv1
+- name: get_audit_logs
+  description: Return organization audit logs for a time range.
+  source_operation: getauditlogsviewv1
+- name: create_user
+  description: Create a Command user (Core).
+  source_operation: postuserviewv1
+- name: get_sensor_data
+  description: Return sensor readings for a sensor over a time range.
+  source_operation: getsensordataviewv1
+- name: get_sensor_alerts
+  description: Return sensor alerts over a time range.
+  source_operation: getsensoralertsviewv1
+- name: create_helix_event
+  description: Create a Helix video-tagging event.
+  source_operation: postvideotaggingeventviewv1
+- name: search_helix_events
+  description: Search Helix video-tagging events.
+  source_operation: postvideotaggingeventsearchviewv1
+- name: list_guest_events
+  description: Return guest events for a site within a time range.
+  source_operation: getguesteventviewv2
+- name: get_alarm_devices
+  description: Get devices in an alarm site.
+  source_operation: getalarmsdevicesviewv1

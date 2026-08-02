@@ -1,8 +1,29 @@
 aid: verkada
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/verkada.png
 name: Verkada
-description: 'Verkada is a company surfaced as a portfolio company of felicis, first-round-capital, general-catalyst,
-  lightspeed-venture-partners and added to the API Evangelist network as a stub for enrichment. Sector:
-  security. This profile is a lead awaiting the enrichment pipeline.'
+description: >-
+  Verkada is a cloud-managed physical security company whose platform spans security
+  cameras, access control, environmental and air-quality sensors, alarms, intercoms,
+  visitor/guest management, and workplace safety, all administered through Verkada
+  Command. Its public Command API is a REST interface (JSON over HTTPS, standard HTTP
+  status codes) that lets developers programmatically manage cameras and footage,
+  access-control users, doors, credentials and schedules, sensor and alarm data,
+  guest events, Helix video tagging, and organization audit logs. Authentication uses
+  a scoped API Key that mints short-lived 30-minute tokens (x-verkada-auth), with
+  region-specific hosts for the United States, Europe, Australia, and GovCloud, plus
+  HMAC-signed event webhooks for cameras, access, alarms, and guest.
 url: https://raw.githubusercontent.com/api-evangelist/verkada/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -15,11 +36,42 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Security
-apis: []
+- Physical Security
+- Video Surveillance
+- Access Control
+- Cameras
+- Sensors
+- Alarms
+- IoT
+- Cloud
+- Webhooks
+- Building Management
+apis:
+- name: Verkada Command API
+  description: >-
+    REST API for the Verkada Command platform - cameras and footage, access control,
+    sensors, alarms, guest management, Helix video tagging, and audit logs. Scoped
+    API key + short-lived token auth; region-specific hosts.
+  humanURL: https://apidocs.verkada.com
+  baseURL: https://api.verkada.com
+  tags:
+  - Security
+  - Cameras
+  - Access Control
+  - Physical Security
+  properties:
+  - type: Documentation
+    url: https://apidocs.verkada.com/reference/introduction
+  - type: APIReference
+    url: https://apidocs.verkada.com/reference/overview
+  - type: GettingStarted
+    url: https://apidocs.verkada.com/reference/quick-start-guide
+  - type: Authentication
+    url: authentication/verkada-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -28,3 +80,76 @@ maintainers:
 common:
 - type: Website
   url: https://verkada.com
+- type: DeveloperPortal
+  url: https://apidocs.verkada.com
+- type: Documentation
+  url: https://apidocs.verkada.com/reference/introduction
+- type: APIReference
+  url: https://apidocs.verkada.com/reference/overview
+- type: GettingStarted
+  url: https://apidocs.verkada.com/reference/quick-start-guide
+- type: Support
+  url: https://www.verkada.com/support/
+- type: Blog
+  url: https://www.verkada.com/blog/
+- type: GitHubOrganization
+  url: https://github.com/verkada
+- type: Pricing
+  url: https://www.verkada.com/pricing/
+- type: SignUp
+  url: https://www.verkada.com/demo/
+- type: Login
+  url: https://command.verkada.com
+- type: TermsOfService
+  url: https://www.verkada.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://www.verkada.com/privacy/privacy-policy/
+- type: Postman
+  url: https://www.postman.com/verkada-api/workspace/verkada-api-public-workspace
+- type: StatusPage
+  url: https://status.verkada.com
+- type: Deprecation
+  url: https://apidocs.verkada.com/reference/using-legacy-api-keys
+- type: Security
+  url: https://www.verkada.com/security/
+- type: TrustCenter
+  url: security/verkada-trust-center.yml
+- type: Compliance
+  url: https://security.verkada.com/
+- type: ChangeLog
+  url: changelog/verkada-changelog.yml
+- type: Authentication
+  url: authentication/verkada-authentication.yml
+- type: Conventions
+  url: conventions/verkada-conventions.yml
+- type: Lifecycle
+  url: lifecycle/verkada-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/verkada-problem-types.yml
+- type: Webhooks
+  url: asyncapi/verkada-webhooks.yml
+- type: Conformance
+  url: conformance/verkada-conformance.yml
+- type: MCPServer
+  url: mcp/verkada-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/verkada-llms.txt
+- type: WellKnown
+  url: well-known/verkada-well-known.yml
+- type: Packages
+  url: packages/verkada-packages.yml
+- type: DataModel
+  url: data-model/verkada-data-model.yml
+- type: RateLimits
+  url: rate-limits/verkada-rate-limits.yml
+- type: DomainSecurity
+  url: security/verkada-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/verkada-vulnerability-disclosure.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

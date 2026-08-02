@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: searched
+source: live probes of /.well-known/ on Verkada hosts
+notes: >-
+  No /.well-known/ discovery documents are published. verkada.com returns 404
+  for all probed paths; api.verkada.com returns 403 (the API host requires
+  authentication and exposes no anonymous discovery surface); apidocs.verkada.com
+  returns 404. Absence is valid, recorded data.
+hosts:
+- host: https://verkada.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://api.verkada.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+- host: https://apidocs.verkada.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404

@@ -1,0 +1,83 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.verkada.com/reference/introduction
+description: >-
+  Cross-cutting request/response semantics for the Verkada Command REST API,
+  captured from the provider's own documentation. REST over HTTPS, JSON-encoded
+  requests and responses, standard HTTP status codes.
+authentication:
+  style: two-tier-api-key-token
+  header: x-verkada-auth
+  see: authentication/verkada-authentication.yml
+base_urls:
+  default: https://api.verkada.com
+  regions:
+    united_states: https://api.verkada.com
+    europe: https://api.eu.verkada.com
+    australia: https://api.au.verkada.com
+    govcloud: https://api.verkadagov.com
+  notes: >-
+    Region is fixed at organization creation; credentials only work against the
+    org's home region. Default (unspecified) region is the United States.
+  docs: https://apidocs.verkada.com/reference/service-regions
+versioning:
+  scheme: uri-path-per-resource
+  examples: ['/cameras/v1/alerts', '/access/v1', 'v1 and v2 resource versions coexist']
+  notes: >-
+    Each product/resource family carries its own version segment in the path
+    (v1, v2). There is no global API version header; newer resource versions (e.g.
+    Guest v2, face-unlock v2) are introduced alongside existing v1 resources.
+pagination:
+  style: cursor-token
+  request_params:
+    page_size: {type: integer, default: 100, max: 200, description: items per response}
+    page_token: {type: string, description: token from prior response's next_page_token}
+  response_fields:
+    next_page_token: {type: string, description: pass as page_token for the next page; null when complete}
+  notes: >-
+    Token-based forward-only pagination; cannot jump to an arbitrary page. Iterate
+    until next_page_token is null.
+  docs: https://apidocs.verkada.com/reference/pagination
+rate_limiting:
+  scope: per-organization, global across all endpoints
+  limit: 300 requests per minute
+  burst: '>25 requests within any 5-second window re-triggers the limit'
+  cooldown_seconds: 5
+  exceeded_status: 429
+  retry_guidance: exponential backoff; cache stable GET responses
+  headers: none documented (no X-RateLimit-* or Retry-After documented)
+  docs: https://apidocs.verkada.com/reference/ratelimiting
+idempotency:
+  key_header: null
+  supported: partial
+  notes: >-
+    Verkada does NOT document a general Idempotency-Key request header. Idempotency
+    is achieved via HTTP method semantics (PUT/DELETE) and a few operations that
+    are explicitly idempotent by design - e.g. Add People to Approved Lists
+    (patchapprovedlistaddviewv2) is documented as idempotent (repeat calls with the
+    same data create no duplicates). No provider-wide idempotency contract exists.
+error_envelope:
+  format: custom-json
+  shape: '{"id": string, "message": string, "data": object|null}'
+  example: '{"id":"0e2d","message":"Token expired","data":null}'
+  http_status_codes: [400, 401, 403, 412, 429, 500]
+  see: errors/verkada-problem-types.yml
+  docs: https://apidocs.verkada.com/reference/request-methods
+request_tracing:
+  request_id_header: null
+  notes: no documented request-id/correlation header
+webhooks:
+  outbound: true
+  transport: HTTPS POST, JSON body, 2xx expected within 2000 ms, retried once on failure
+  signature:
+    header: Verkada-Signature
+    format: 'timestamp|signature (pipe-separated)'
+    algorithm: HMAC-SHA256 over "<raw_json_body>|<timestamp>" using the webhook shared secret
+    replay_protection: verify timestamp freshness (docs sample rejects > 60s old)
+  see: asyncapi/verkada-webhooks.yml
+  docs: https://apidocs.verkada.com/reference/securing-webhooks
+transport_security:
+  tls: [TLSv1.2, TLSv1.3]
+  cipher: AES-128
+  https_only: true
+  docs: https://apidocs.verkada.com/reference/security-overview

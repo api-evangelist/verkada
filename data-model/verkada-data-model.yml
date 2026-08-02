@@ -1,0 +1,78 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.verkada.com/reference/introduction
+description: >-
+  Entity-relationship map for the Verkada Command API, reconstructed from the
+  documented object references and the id fields (org_id, site_id, device_id,
+  door_id, user_id, group_id, card_id) that thread through the operations. Every
+  resource is scoped to an Organization; most are further scoped to a Site.
+scoping_ids:
+- {id: org_id, description: organization (top-level tenant)}
+- {id: site_id, description: physical site within an org}
+- {id: device_id, description: generic device id (camera/sensor/alarm/door controller)}
+- {id: user_id, description: Verkada-defined access/command user id}
+- {id: external_id, description: customer-defined user id (alternative to user_id)}
+- {id: door_id, description: access-controlled door}
+- {id: group_id, description: access group}
+- {id: card_id, description: access card credential}
+entities:
+- name: Organization
+  id: org_id
+  relationships:
+  - {type: has_many, target: Site, via: org_id}
+  - {type: has_many, target: AccessUser, via: org_id}
+  - {type: has_many, target: Camera, via: org_id}
+- name: Site
+  id: site_id
+  relationships:
+  - {type: belongs_to, target: Organization, via: org_id}
+  - {type: has_many, target: Door, via: site_id}
+  - {type: has_many, target: AlarmDevice, via: site_id}
+- name: Camera
+  id: camera_id
+  relationships:
+  - {type: belongs_to, target: Organization, via: org_id}
+  - {type: has_many, target: CameraAlert, via: camera_id}
+  - {type: has_many, target: LicensePlateSighting, via: camera_id}
+- name: AccessUser
+  id: user_id
+  relationships:
+  - {type: belongs_to, target: Organization, via: org_id}
+  - {type: has_many, target: AccessCard, via: user_id}
+  - {type: has_many, target: AccessGroup, via: user_id}
+  - {type: has_one, target: ProfilePhoto, via: user_id}
+- name: AccessGroup
+  id: group_id
+  relationships:
+  - {type: has_many, target: AccessUser, via: group_id}
+  - {type: has_many, target: AccessLevel, via: group_id}
+- name: AccessLevel
+  relationships:
+  - {type: has_many, target: Door, via: doors}
+  - {type: has_many, target: AccessScheduleEvent, via: access_schedule_events}
+  - {type: has_many, target: AccessGroup, via: access_groups}
+- name: Door
+  id: door_id
+  relationships:
+  - {type: belongs_to, target: Site, via: site_id}
+  - {type: has_one, target: DoorExceptionCalendar, via: door_id}
+- name: AccessCard
+  id: card_id
+  relationships:
+  - {type: belongs_to, target: AccessUser, via: user_id}
+- name: Sensor
+  relationships:
+  - {type: belongs_to, target: Organization, via: org_id}
+  - {type: has_many, target: SensorReading, via: device_id}
+- name: AlarmDevice
+  relationships:
+  - {type: belongs_to, target: Site, via: site_id}
+- name: HelixEvent
+  relationships:
+  - {type: belongs_to, target: Organization, via: org_id}
+  - {type: has_one, target: HelixEventType, via: event_type_uid}
+- name: GuestEvent
+  id: guest_event_id
+  relationships:
+  - {type: belongs_to, target: Site, via: site_id}
+  - {type: has_one, target: Host, via: host}

@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: https://apidocs.verkada.com/llms.txt
+skills:
+- file: verkada-authenticate-and-read-cameras.md
+  name: Authenticate and read Verkada camera data
+  api: https://apidocs.verkada.com/reference/introduction
+  operations: [postloginapikeyviewv2, getcamerainfoviewv1, getnotificationsviewv1, getobjectcountsviewv1]
+- file: verkada-provision-access-user.md
+  name: Provision a Verkada access user and grant door access
+  api: https://apidocs.verkada.com/reference/access-api-101
+  operations: [getaccessmembersviewv1, postaccesscardviewv1, putaccessgroupuserviewv1, getaccessdoorinformationviewv1, postaccessuserapiunlockviewv1]
+- file: verkada-consume-webhooks.md
+  name: Consume and verify Verkada webhooks
+  api: https://apidocs.verkada.com/reference/event-based-webhooks
+  operations: []

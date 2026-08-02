@@ -1,0 +1,44 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.verkada.com/reference/request-methods
+format: custom-json
+envelope:
+  shape: '{"id": string, "message": string, "data": object|null}'
+  example: '{"id":"0e2d","message":"Token expired","data":null}'
+  notes: >-
+    Verkada does not use RFC 9457 application/problem+json. Errors are returned as
+    a JSON object with a short id, a human-readable message, and an optional data
+    object, alongside a standard HTTP status code.
+problems:
+- status: 400
+  title: Bad Request
+  remediation: Check required parameters and JSON body shape.
+- status: 401
+  title: Authentication Error
+  detail: Missing, invalid, or expired API Token (or expired API Key).
+  example: '{"id":"0e2d","message":"Token expired","data":null}'
+  remediation: Mint a fresh API Token via postloginapikeyviewv2 (tokens expire after 30 minutes).
+  source_operation: postloginapikeyviewv2
+- status: 403
+  title: Forbidden
+  detail: >-
+    Key/token lacks the required permission scope for the endpoint, or the feature
+    is disabled for the organization (e.g. Camera Audio not enabled in Feature Manager).
+  remediation: Verify the API Key's product/endpoint scope and org Privacy & Security settings.
+- status: 412
+  title: Precondition Failed
+  detail: Operation not supported by the target device (e.g. camera model does not support audio).
+  source_operation: postcameraaudioviewv1
+  remediation: Confirm device capability before calling.
+- status: 429
+  title: Too Many Requests
+  detail: Rate limit exceeded (300 requests/minute per organization; 5-second cooldown).
+  remediation: Back off for the 5-second cooldown, then use exponential backoff; cache stable GETs.
+  see: conventions/verkada-conventions.yml
+- status: 500
+  title: Internal Server Error
+  detail: >-
+    Server-side error; also surfaced by the footage streaming endpoint for failed
+    JWT authentication and m3u8/segment fetch failures.
+  source_operation: getfootagestreamviewv1
+  remediation: Retry with backoff; verify streaming query parameters and JWT; open a support ticket if persistent.

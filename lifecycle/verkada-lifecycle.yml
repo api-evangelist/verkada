@@ -1,0 +1,25 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.verkada.com/reference/using-legacy-api-keys
+versioning:
+  scheme: uri-path-per-resource
+  current: mixed v1/v2 resource versions
+  docs: https://apidocs.verkada.com/reference/service-regions
+deprecation:
+  policy_url: https://apidocs.verkada.com/reference/using-legacy-api-keys
+  summary: >-
+    In November 2024 Verkada moved to a scoped API Key + short-lived Token model.
+    Legacy (pre-Nov-2024) API keys are deprecated but remain valid until their
+    existing expiration date; Verkada recommends migrating to the new granular-key
+    model. No RFC 8594 Sunset/Deprecation response headers are documented.
+  sunset_header: false
+  legacy_support: until existing key expiration
+sla:
+  uptime_target: '99.99%'
+  scope: Verkada Command platform availability per calendar month
+  url: https://www.verkada.com/trust/availability/
+status_page: https://status.verkada.com
+status_page_notes: >-
+  Live Command platform system status, incident history, and subscribe-to-updates;
+  authoritative uptime source.
+deprecated_operations: []

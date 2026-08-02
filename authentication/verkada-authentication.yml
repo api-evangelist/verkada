@@ -1,0 +1,63 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.verkada.com/reference/quick-start-guide
+docs: https://apidocs.verkada.com/reference/security-overview
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  model: two-tier-key-token
+  oauth2_flows: []
+description: >-
+  The Verkada Command API uses a two-tier API key + short-lived token model
+  (adopted November 2024). Organization admins mint a scoped, long-lived API Key
+  in Command (Organization Settings > Verkada API), choosing product/endpoint
+  permission sets and a Read-only or Read/Write scope. The API Key is never sent
+  to endpoints directly; instead it is exchanged for a short-lived API Token that
+  is used to authenticate individual endpoint calls.
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter_name: x-api-key
+  role: top-level key (used only against the token endpoint and streaming-token endpoints)
+  notes: >-
+    Scoped, org-admin-created. Permissions are fixed at creation time and cannot
+    be edited. Max lifetime 20 years; Verkada recommends <= 1 year and annual
+    rotation. Legacy (pre-Nov-2024) API keys remain valid until their existing
+    expiration and can still call endpoints directly.
+  sources: [https://apidocs.verkada.com/reference/quick-start-guide]
+- name: apiToken
+  type: apiKey
+  in: header
+  parameter_name: x-verkada-auth
+  role: short-lived endpoint token
+  mint_operation: postloginapikeyviewv2
+  token_endpoint: https://api.verkada.com/token
+  lifetime_seconds: 1800
+  refreshable: false
+  notes: >-
+    POST the top-level API Key as the x-api-key header to /token to receive
+    {"token":"v2_api_token"}. Valid for 30 minutes, cannot be refreshed - mint a
+    new token when expired. Tokens inherit the permission scope of the API Key
+    that minted them. Expired tokens return HTTP 401 with body
+    {"id":"0e2d","message":"Token expired","data":null}.
+  sources: [https://apidocs.verkada.com/reference/postloginapikeyviewv2]
+- name: streamingJwt
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  role: footage streaming token
+  mint_operation: getfootagetokenviewv1
+  in: query
+  parameter_name: jwt
+  lifetime_seconds: 1800
+  notes: >-
+    Live/historical HLS footage streaming uses a separate JWT obtained from the
+    Get Streaming Token endpoint (which itself requires the top-level API Key).
+    The JWT is passed as a query parameter to the streaming endpoint and is valid
+    for 30 minutes.
+  sources: [https://apidocs.verkada.com/reference/getfootagetokenviewv1]
+notes:
+- The Camera Audio API requires a separate "Camera Audio" API key distinct from Read-only and Read/Write keys.
+- All requests must be made over HTTPS (TLS 1.2 or 1.3, AES-128).
+- Credentials are region-bound and only work against the region where the org was created.

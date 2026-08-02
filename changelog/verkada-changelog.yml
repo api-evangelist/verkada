@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.verkada.com/updates/
+docs: https://apidocs.verkada.com/reference/introduction
+scheme: dated announcements (Verkada Updates + API docs); no formal semver on the public API
+current: mixed per-resource v1/v2
+entries:
+- date: '2024-11'
+  type: breaking
+  highlights:
+  - >-
+    New API architecture: scoped API Keys (per product / "Critical Endpoints",
+    Read-only or Read/Write) that must be exchanged for short-lived 30-minute API
+    Tokens (x-verkada-auth) to authenticate at the endpoint level.
+  - Legacy API keys deprecated but honored until their existing expiration.
+- date: '2024-08-29'
+  type: additions
+  highlights:
+  - Occupancy Trends endpoint - foot-traffic trend analysis across cameras for BI tools.
+  - Object Positioning metadata stream (MQTT) for dwell-time and occupancy analytics.
+- date: recent
+  type: additions
+  highlights:
+  - Guest API v2 (guest events, hosts, approved/deny lists, visits, guest types).
+  - Face Unlock v2 access-credential management (invite, upload photo, copy profile photo, disable).
+  - Event-Based Webhooks with filtered, event-driven payloads (cameras, access, alarms, guest).
+notes: >-
+  Verkada does not publish a single machine-readable dated changelog file; recent
+  entries above are reconstructed from the Verkada Updates page, the API docs, and
+  product announcement posts. The live docs at apidocs.verkada.com are the source of truth.

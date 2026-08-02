@@ -1,0 +1,63 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.verkada.com/reference/event-based-webhooks
+spec_type: Webhooks
+description: >-
+  Verkada Command pushes real-time events to customer HTTPS endpoints via webhooks.
+  Two modes exist: general (product) webhooks that push all data for a product, and
+  event-based webhooks that are event-driven and highly filtered. Available for
+  cameras, access control, new alarms, and guest. Configured in Command
+  (Admin > APIs and Integrations > Webhooks) with a destination URL and a shared secret.
+delivery:
+  transport: HTTPS POST, application/json
+  ack: endpoint must return 2xx within 2000 ms; failed deliveries retried once
+  requirements:
+  - HTTPS endpoint with SSL cert signed by a trusted CA
+  - handle concurrent requests
+  - respond in < 2000 ms with JSON
+  docs: https://apidocs.verkada.com/reference/build-webhooks
+security:
+  signature_header: Verkada-Signature
+  format: 'timestamp|signature'
+  algorithm: HMAC-SHA256 over "<raw_body>|<timestamp>" keyed by the webhook shared secret
+  replay_protection: reject when now - timestamp exceeds tolerance (docs sample uses 60s)
+  docs: https://apidocs.verkada.com/reference/securing-webhooks
+common_payload:
+  fields: [org_id, webhook_type, created_at, webhook_id, data]
+  example: >-
+    {"org_id":"...","webhook_type":"alert","created_at":1771459272,"webhook_id":"...",
+    "data":{"alert_id":"...","alert_name":"...","alert_type":"ALERT_RULE_LINE_CROSSING",
+    "device_id":"...","site_id":"...","product_type":"CAMERA","image_url":"...","created":"...","details":{}}}
+event_families:
+- family: Cameras
+  reference: https://apidocs.verkada.com/reference/lpr
+  events:
+  - name: AI Powered Alert
+    details: {ai_query: string}
+  - name: Activity Detection
+    details: {activity_type: 'person_falling|person_climbing|person_fighting'}
+  - name: Smart List
+    details: {smart_list_name: string, person_type: 'new_person|frequently_seen_person'}
+  - name: Motion Detection
+    details: {object_type: 'person|vehicle|animal|motion'}
+  - name: Line Crossing Detection
+    details: {object_type: 'person|vehicle|animal'}
+  - name: Loitering Detection
+    details: {object_type: 'person|vehicle|animal'}
+  - name: Crowd Detection
+  - name: License Plate Recognition (LPR)
+    reference: https://apidocs.verkada.com/reference/lpr
+- family: Access Control
+  reference: https://apidocs.verkada.com/reference/access-events-webhooks
+  events:
+  - name: Access Events
+  - name: Access Credential
+    reference: https://apidocs.verkada.com/reference/access-credential-webhook-object
+- family: Alarms
+  reference: https://apidocs.verkada.com/reference/new-alarms-webhook-object
+  events:
+  - name: New Alarms
+- family: Guest
+  events:
+  - name: Guest events
+integrations_examples: [ServiceNow, Slack, custom incident-response dashboards]

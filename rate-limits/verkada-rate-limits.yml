@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.verkada.com/reference/ratelimiting
+scope: per-organization, global across all endpoints
+limits:
+- limit_count: 300
+  window: minute
+  applies_to: all endpoints, per organization
+  notes: >-
+    Enforced on a rolling 5-second interval basis; exceeding it triggers a 5-second
+    cooldown. More than 25 requests in the following 5 seconds re-triggers the limit.
+exceeded:
+  status: 429
+  message: Too Many Requests
+retry_guidance: exponential backoff; cache stable GETs (e.g. camera data, LPO lists)
+headers: none documented (no X-RateLimit-* or Retry-After)
+increase: contact Verkada customer support

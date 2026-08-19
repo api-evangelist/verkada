@@ -2,12 +2,10 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: https://apidocs.verkada.com/llms.txt
-description: >-
-  Candidate MCP tool surface derived from the Verkada Command API operations
-  published in the provider's own llms.txt / API reference. Verkada does not (as of
-  this pass) publish an official hosted or remote MCP server; this is a proposed
-  mapping of one MCP tool per marquee operation to make the Command API agent-ready.
-  operationIds are the verbatim Verkada API reference identifiers.
+description: Candidate MCP tool surface derived from the Verkada Command API operations published in the
+  provider's own llms.txt / API reference. Verkada does not (as of this pass) publish an official hosted
+  or remote MCP server; this is a proposed mapping of one MCP tool per marquee operation to make the Command
+  API agent-ready. operationIds are the verbatim Verkada API reference identifiers.
 server:
   name: verkada-command
   transport: http
@@ -80,3 +78,9 @@ tools:
 - name: get_alarm_devices
   description: Get devices in an alarm site.
   source_operation: getalarmsdevicesviewv1
+deployment:
+  mode: none
+  verified: derived
+  tools: 22
+  checked: '2026-08-12'
+  source: catalog MCP census

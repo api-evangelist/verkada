@@ -43,6 +43,19 @@ tags:
 - Physical Security
 - Video Surveillance
 - Access Control
+- Camera
+- Sensors
+- Alarms
+- IoT
+- Cloud
+- Webhook
+- Building Management
+tags_raw:
+- Company
+- Security
+- Physical Security
+- Video Surveillance
+- Access Control
 - Cameras
 - Sensors
 - Alarms
@@ -59,6 +72,11 @@ apis:
   humanURL: https://apidocs.verkada.com
   baseURL: https://api.verkada.com
   tags:
+  - Security
+  - Camera
+  - Access Control
+  - Physical Security
+  tags_raw:
   - Security
   - Cameras
   - Access Control

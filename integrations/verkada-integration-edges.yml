@@ -1,0 +1,53 @@
+generated: '2026-10-14'
+method: searched
+checked:
+- clever/integrations/clever-integration-edges.yml
+- okta/integrations/okta-integration-edges.yml
+source:
+- clever/integrations/clever-integration-edges.yml
+- okta/integrations/okta-integration-edges.yml
+edges:
+- partner_name: Clever (clever-app-gallery)
+  partner: clever
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: clever-app-gallery
+  evidence: https://clever.com/app-gallery
+  mirror_of: clever/integrations/clever-integration-edges.yml
+  apps: []
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: other
+  features:
+  - secure_sync
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/verkada/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Verkada
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - CREATE
+  - DEACTIVATE
+  - GROUP_LINKING
+  - GROUP_PUSH
+  - SAML
+  - UPDATE
